@@ -173,7 +173,11 @@
     .badge--beginner { background: rgba(52,199,89,0.15); color: #34c759; border: 1px solid rgba(52,199,89,0.3); }
     .badge--intermediate { background: rgba(255,159,10,0.15); color: #ff9f0a; border: 1px solid rgba(255,159,10,0.3); }
     .badge--advanced { background: rgba(94,92,230,0.15); color: #7c7aff; border: 1px solid rgba(94,92,230,0.3); }
-    .badge--hidden { background: rgba(48,209,88,0.12); color: var(--green-terminal); border: 1px solid rgba(48,209,88,0.25); }
+    .badge--hidden {
+      background: rgba(48,209,88,0.12); color: var(--green-terminal); border: 1px solid rgba(48,209,88,0.25);
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      text-transform: none; letter-spacing: 0.3px;
+    }
 
     .section__title {
       font-family: system-ui, -apple-system, 'SF Pro Display', sans-serif;
@@ -384,6 +388,7 @@
       .hero { padding: 100px 16px 60px; }
       .section { padding: 56px 16px; }
       .search-wrap { padding: 10px 16px; }
+      .search-hint { display: none; }
     }
   </style>
 </head>
@@ -575,40 +580,44 @@
 <footer class="footer">
   <div class="footer__mascot">
     <svg width="56" height="48" viewBox="0 0 56 48" shape-rendering="crispEdges" fill="none">
-      <!-- eye stalks (shorter: h=3 was h=6) -->
-      <rect x="18" y="10" width="4"  height="3"  fill="#E8743B"/>
-      <rect x="34" y="10" width="4"  height="3"  fill="#E8743B"/>
-      <!-- left eye -->
-      <rect x="14" y="2"  width="10" height="8"  fill="#E8743B"/>
-      <rect x="14" y="2"  width="4"  height="4"  fill="#F5956A"/>
-      <rect x="18" y="5"  width="4"  height="4"  fill="#2997ff"/>
-      <!-- right eye -->
-      <rect x="32" y="2"  width="10" height="8"  fill="#E8743B"/>
-      <rect x="38" y="2"  width="4"  height="4"  fill="#F5956A"/>
-      <rect x="34" y="5"  width="4"  height="4"  fill="#2997ff"/>
-      <!-- body (wider: x=8 w=40 was x=10 w=36; y=13 was y=16) -->
-      <rect x="8"  y="13" width="40" height="24" fill="#E8743B"/>
-      <rect x="8"  y="13" width="40" height="4"  fill="#F5956A"/>
-      <rect x="8"  y="33" width="40" height="4"  fill="#CC5C2A"/>
-      <!-- left claw (narrower: w=10 was w=12; y=17 was y=20) -->
-      <rect x="0"  y="17" width="10" height="16" fill="#E8743B"/>
-      <rect x="7"  y="17" width="3"  height="16" fill="#CC5C2A"/>
-      <rect x="1"  y="23" width="5"  height="3"  fill="#F5956A"/>
+      <!-- eye stalks (scaled from hero ×0.35) -->
+      <rect x="15" y="10" width="3"  height="2"  fill="#E8743B"/>
+      <rect x="38" y="10" width="3"  height="2"  fill="#E8743B"/>
+      <!-- left eye (center x=17, matching hero offset -32 at scale) -->
+      <rect x="13" y="3"  width="8"  height="7"  fill="#E8743B"/>
+      <rect x="13" y="3"  width="3"  height="3"  fill="#F5956A"/>
+      <rect x="15" y="5"  width="3"  height="3"  fill="#2997ff"/>
+      <!-- right eye (center x=40, matching hero offset +32 at scale) -->
+      <rect x="35" y="3"  width="8"  height="7"  fill="#E8743B"/>
+      <rect x="40" y="3"  width="3"  height="3"  fill="#F5956A"/>
+      <rect x="38" y="5"  width="3"  height="3"  fill="#2997ff"/>
+      <!-- body -->
+      <rect x="8"  y="12" width="40" height="22" fill="#E8743B"/>
+      <rect x="8"  y="12" width="40" height="3"  fill="#F5956A"/>
+      <rect x="8"  y="31" width="40" height="3"  fill="#CC5C2A"/>
+      <!-- left claw -->
+      <rect x="0"  y="15" width="8"  height="17" fill="#E8743B"/>
+      <rect x="6"  y="15" width="3"  height="17" fill="#CC5C2A"/>
+      <rect x="1"  y="21" width="4"  height="3"  fill="#F5956A"/>
+      <rect x="0"  y="15" width="3"  height="3"  fill="#F5956A"/>
+      <rect x="0"  y="29" width="3"  height="3"  fill="#F5956A"/>
       <!-- right claw -->
-      <rect x="46" y="17" width="10" height="16" fill="#E8743B"/>
-      <rect x="46" y="17" width="3"  height="16" fill="#CC5C2A"/>
-      <rect x="50" y="23" width="5"  height="3"  fill="#F5956A"/>
+      <rect x="48" y="15" width="8"  height="17" fill="#E8743B"/>
+      <rect x="48" y="15" width="3"  height="17" fill="#CC5C2A"/>
+      <rect x="51" y="21" width="4"  height="3"  fill="#F5956A"/>
+      <rect x="53" y="15" width="3"  height="3"  fill="#F5956A"/>
+      <rect x="53" y="29" width="3"  height="3"  fill="#F5956A"/>
       <!-- smile -->
-      <rect x="20" y="26" width="2"  height="2"  fill="#CC5C2A"/>
-      <rect x="22" y="28" width="12" height="2"  fill="#CC5C2A"/>
-      <rect x="34" y="26" width="2"  height="2"  fill="#CC5C2A"/>
-      <!-- legs (y=37 was y=40) -->
-      <rect x="14" y="37" width="4"  height="8"  fill="#E8743B"/>
-      <rect x="22" y="37" width="4"  height="6"  fill="#E8743B"/>
-      <rect x="30" y="37" width="4"  height="6"  fill="#E8743B"/>
-      <rect x="38" y="37" width="4"  height="8"  fill="#E8743B"/>
-      <rect x="14" y="41" width="4"  height="4"  fill="#CC5C2A"/>
-      <rect x="38" y="41" width="4"  height="4"  fill="#CC5C2A"/>
+      <rect x="21" y="24" width="2"  height="2"  fill="#CC5C2A"/>
+      <rect x="23" y="26" width="10" height="2"  fill="#CC5C2A"/>
+      <rect x="33" y="24" width="2"  height="2"  fill="#CC5C2A"/>
+      <!-- legs -->
+      <rect x="14" y="34" width="3"  height="6"  fill="#E8743B"/>
+      <rect x="20" y="34" width="3"  height="4"  fill="#E8743B"/>
+      <rect x="33" y="34" width="3"  height="4"  fill="#E8743B"/>
+      <rect x="39" y="34" width="3"  height="6"  fill="#E8743B"/>
+      <rect x="14" y="37" width="3"  height="3"  fill="#CC5C2A"/>
+      <rect x="39" y="37" width="3"  height="3"  fill="#CC5C2A"/>
     </svg>
   </div>
   <p class="footer__text">Claude Code コマンド図鑑 — powered by Anthropic<br>コマンドは随時アップデートされます。公式ドキュメントも併せてご確認ください。</p>
@@ -1793,6 +1802,9 @@ document.querySelectorAll('.chip').forEach(chip => {
 
 // Search
 const searchInput = document.getElementById('searchInput');
+if (window.innerWidth <= 640) {
+  searchInput.placeholder = 'コマンドを検索…';
+}
 searchInput.addEventListener('input', e => {
   currentSearch = e.target.value;
   applyFilters();
